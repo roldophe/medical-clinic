@@ -30,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
     private final MailService mailService;
     private final AuthMapper authMapper;
 
-    //    private final RandomCode randomCode;
+
     @Override
     public AuthDto refreshToken(RefreshTokenDto refreshTokenDto) {
         return null;
@@ -64,6 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthDto login(LoginDto loginDto) {
+
         return null;
     }
 
