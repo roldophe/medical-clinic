@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,12 +25,12 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    //    private final UserRoleRepository userRoleRepository;
-    //    private final PasswordEncoder passwordEncoder;
     @Override
     public UserDto me(Authentication authentication) {
         return null;
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role ID doesn't exits in db!")
                 ))
         );
-//        user.setPassword(passwordEncoder.encode(newUserDto.password()));
+        user.setPassword(passwordEncoder.encode(newUserDto.password()));
         user.setIsVerified(false);
         user.setVerifiedCode(verifiedCode);
         user.setIsDeleted(false);

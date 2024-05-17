@@ -52,9 +52,8 @@ public class SecurityConfig {
                 .authenticated()
         );
 
-        //TODO: Use Default form login
-        http.formLogin(Customizer.withDefaults());
-
+        //TODO: Use Default form login and Policy to Stateful
+        //        http.formLogin(Customizer.withDefaults());
 
         //TODO: Configure HTTP Basic for Client Application. Example : Postman, Insomnia ,...
         http.httpBasic(Customizer.withDefaults());

@@ -6,9 +6,10 @@ import dev.radom.medicalclinic.api.user.model.User;
 import dev.radom.medicalclinic.api.user.repository.AuthorityRepository;
 import dev.radom.medicalclinic.api.user.repository.RoleRepository;
 import dev.radom.medicalclinic.api.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
@@ -16,16 +17,17 @@ import java.util.Set;
 import java.util.UUID;
 
 @Configuration
+@RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    private AuthorityRepository authorityRepository;
+    private final AuthorityRepository authorityRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public void run(String... args) {
@@ -36,7 +38,7 @@ public class DataLoader implements CommandLineRunner {
         user.setIsVerified(true);
         user.setUsername("admin");
         user.setNickName("tocopherol");
-        user.setPassword("$2a$12$uGEL.hBd0jhbsLdkQTUxQ.IZBlAWkBCBmC8/Wddnywk4g.r6NStru");
+        user.setPassword(passwordEncoder.encode("12345"));
         user.setEmail("admin@example.com");
         user.setCreatedBy(createdBy);
 
@@ -83,8 +85,7 @@ public class DataLoader implements CommandLineRunner {
         deleteUser.setAuthorityName("user:delete");
         deleteUser.setCreatedBy(createdBy);
 
-        Set<Authority> userAuthorities = Set.of(readUser, writeUser, deleteUser, updateUser, userProfile);
-        return userAuthorities;
+        return Set.of(readUser, writeUser, deleteUser, updateUser, userProfile);
     }
 
 }

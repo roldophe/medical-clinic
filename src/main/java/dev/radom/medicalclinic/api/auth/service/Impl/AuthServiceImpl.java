@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
     private String adminMail;
     private final UserService userService;
     private final AuthRepository authRepository;
-    //    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final AuthMapper authMapper;
 
