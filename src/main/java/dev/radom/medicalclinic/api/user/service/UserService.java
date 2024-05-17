@@ -3,7 +3,7 @@ package dev.radom.medicalclinic.api.user.service;
 import dev.radom.medicalclinic.api.user.web.NewUserDto;
 import dev.radom.medicalclinic.api.user.web.UpdateUserDto;
 import dev.radom.medicalclinic.api.user.web.UserDto;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.UUID;

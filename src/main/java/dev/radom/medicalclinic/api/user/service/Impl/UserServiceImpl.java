@@ -9,11 +9,12 @@ import dev.radom.medicalclinic.api.user.service.UserService;
 import dev.radom.medicalclinic.api.user.web.NewUserDto;
 import dev.radom.medicalclinic.api.user.web.UpdateUserDto;
 import dev.radom.medicalclinic.api.user.web.UserDto;
+import dev.radom.medicalclinic.security.CustomUserDetails;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,7 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto me(Authentication authentication) {
-        return null;
+        CustomUserDetails customUserDetails =(CustomUserDetails) authentication.getPrincipal();
+        return userMapper.toUserDto(customUserDetails.getUser());
     }
 
     @Override
