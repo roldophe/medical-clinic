@@ -18,6 +18,7 @@ import java.util.List;
 public class CustomUserDetails implements UserDetails {
 
     private User user;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -27,7 +28,7 @@ public class CustomUserDetails implements UserDetails {
 
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             role.getAuthorities().stream().forEach(authority ->
-                authorities.add(new SimpleGrantedAuthority(authority.getAuthorityName()))
+                    authorities.add(new SimpleGrantedAuthority(authority.getAuthorityName()))
             );
         });
 

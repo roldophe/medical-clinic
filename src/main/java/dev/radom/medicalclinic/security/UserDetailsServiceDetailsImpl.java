@@ -15,20 +15,18 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceDetailsImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User userFound = userRepository.findByUsernameAndIsDeletedFalseAndIsVerifiedTrue(username)
-                .orElseThrow(()-> {
-                    log.error("User not found with username {}", username);
-                    throw new UsernameNotFoundException("Username is not found");
+                .orElseThrow(() -> {
+                    throw new UsernameNotFoundException("User not found with username " + username);
                 });
-        log.info("User found with username {}", userFound.getUsername());
 
         CustomUserDetails customUserDetails = new CustomUserDetails();
         customUserDetails.setUser(userFound);
 
-        log.info("Authenticated user {}", customUserDetails.getAuthorities());
         return customUserDetails;
     }
 }

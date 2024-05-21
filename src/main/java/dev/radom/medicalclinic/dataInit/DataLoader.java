@@ -7,6 +7,7 @@ import dev.radom.medicalclinic.api.user.repository.AuthorityRepository;
 import dev.radom.medicalclinic.api.user.repository.RoleRepository;
 import dev.radom.medicalclinic.api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;

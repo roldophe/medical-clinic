@@ -3,6 +3,7 @@ package dev.radom.medicalclinic.api.user.service;
 import dev.radom.medicalclinic.api.user.web.NewUserDto;
 import dev.radom.medicalclinic.api.user.web.UpdateUserDto;
 import dev.radom.medicalclinic.api.user.web.UserDto;
+import dev.radom.medicalclinic.pagination.PageWrapper;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -46,15 +47,11 @@ public interface UserService {
     /**
      * Updates the deactivated status of a user.
      *
-     * @param uuid The unique identifier of the user whose status is being updated.
+     * @param uuid         The unique identifier of the user whose status is being updated.
      * @param isDeletedDto The DTO containing the new deactivated status.
+     * @return
      */
     void updateIsDeletedByUuid(UUID uuid, Boolean isDeletedDto);
 
-    /**
-     * This method is used to retrieve a list of users in the database
-     *
-     * @return a list of UserDto object representing the user
-     */
-    List<UserDto> findAll();
+    PageWrapper<UserDto> findAll(Integer pageNum, Integer pageSize);
 }

@@ -22,11 +22,8 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -39,16 +36,22 @@ dependencies {
 	//SPRING SECURITY
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	//JWT SECURITY | RESOURCE SERVER
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
 	//TEMPLATE ENGINES
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	// MapStruct core
+	//ACTUATOR
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	//MAPSTRUCT CORE
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 
-	// MapStruct processor (for annotation processing)
+	//MAPSTRUCT PROCESSOR (for annotation processing)
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
-	//Swagger UI
+	//SWAGGER UI
 	implementation('org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0')
 }
 

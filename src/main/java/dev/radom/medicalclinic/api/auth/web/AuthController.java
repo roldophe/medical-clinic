@@ -2,13 +2,12 @@ package dev.radom.medicalclinic.api.auth.web;
 
 import dev.radom.medicalclinic.api.auth.dto.*;
 import dev.radom.medicalclinic.api.auth.service.AuthService;
+import dev.radom.medicalclinic.pagination.PayloadApi;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -20,26 +19,63 @@ public class AuthController {
     private String appBaseUri;
 
     @PostMapping("/token")
-    public AuthDto refreshToken(@Valid @RequestBody RefreshTokenDto refreshTokenDto) {
-        return authService.refreshToken(refreshTokenDto);
+    public PayloadApi<?> refreshToken(@Valid @RequestBody RefreshTokenDto refreshTokenDto) {
+
+        AuthDto authDto = authService.refreshToken(refreshTokenDto);
+        boolean success = true;
+        int code = HttpStatus.OK.value();
+        String message = "Token refreshed successfully";
+
+        return PayloadApi.builder()
+                .success(success)
+                .code(code)
+                .message(message)
+                .error(null)
+                .payload(authDto)
+                .build();
     }
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Map<String, String> register(@Valid @RequestBody RegisterDto registerDto){
+    public PayloadApi<?> register(@Valid @RequestBody RegisterDto registerDto) {
         authService.register(registerDto);
-        return Map.of("message", "Please check email and verified...!",
-                "verifyUri", appBaseUri + "auth/verify?email=" + registerDto.email());
+        boolean success = true;
+        int code = HttpStatus.CREATED.value();
+        String message = "Registration successful. Please check your email.";
+        return PayloadApi.builder()
+                .success(success)
+                .code(code)
+                .message(message)
+                .error(null)
+                .build();
     }
 
     @PostMapping("/verify")
-    public Map<String, String> verifiedCode(@RequestBody VerifyDto verifyDto) {
+    public PayloadApi<?> verifiedCode(@RequestBody VerifyDto verifyDto) {
+
         authService.verify(verifyDto);
-        return Map.of("message", "Congratulation! Email has been verified..!");
+        boolean success = true;
+        int code = HttpStatus.OK.value();
+        String message = "Email verification successful!";
+        return PayloadApi.builder()
+                .success(success)
+                .code(code)
+                .message(message)
+                .error(null)
+                .build();
     }
 
     @PostMapping("/login")
-    public AuthDto login(@Valid @RequestBody LoginDto loginDto) {
-        return authService.login(loginDto);
+    public PayloadApi<?> login(@Valid @RequestBody LoginDto loginDto) {
+        AuthDto authDto = authService.login(loginDto);
+        boolean success = true;
+        int code = HttpStatus.OK.value();
+        String message = "Login successful!";
+        return PayloadApi.builder()
+                .success(success)
+                .code(code)
+                .message(message)
+                .error(null)
+                .payload(authDto)
+                .build();
     }
 }

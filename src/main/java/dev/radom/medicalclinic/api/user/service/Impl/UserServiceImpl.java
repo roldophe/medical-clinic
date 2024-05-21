@@ -9,13 +9,16 @@ import dev.radom.medicalclinic.api.user.service.UserService;
 import dev.radom.medicalclinic.api.user.web.NewUserDto;
 import dev.radom.medicalclinic.api.user.web.UpdateUserDto;
 import dev.radom.medicalclinic.api.user.web.UserDto;
-import dev.radom.medicalclinic.security.CustomUserDetails;
+import dev.radom.medicalclinic.pagination.PageWrapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -34,8 +37,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto me(Authentication authentication) {
-        CustomUserDetails customUserDetails =(CustomUserDetails) authentication.getPrincipal();
-        return userMapper.toUserDto(customUserDetails.getUser());
+
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        assert jwt != null;
+        String username = jwt.getId();
+        User isFound = userRepository.findByUsernameAndIsDeletedFalseAndIsVerifiedTrue(username).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found")
+        );
+        return userMapper.toUserDto(isFound);
     }
 
     @Override
@@ -117,8 +126,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAll() {
-        return userRepository.findAll().stream().map(userMapper::toUserDto).collect(Collectors.toList());
+    public PageWrapper<UserDto> findAll(Integer page, Integer size) {
+
+        Page<UserDto> users = userRepository.findAll(PageRequest.of(page, size)).map(userMapper::toUserDto);
+        return new PageWrapper<>(users);
     }
 
 }
