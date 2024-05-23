@@ -5,7 +5,10 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import dev.radom.medicalclinic.filterConfig.CustomFilter;
+import dev.radom.medicalclinic.filterConfig.StaticKeyAuthenticationFilter;
 import dev.radom.medicalclinic.utils.KeyUtil;
+import dev.radom.medicalclinic.filterConfig.RequestValidationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +29,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.web.SecurityFilterChain;
+
 import java.util.UUID;
 
 @Configuration
@@ -36,6 +40,7 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final KeyUtil keyUtil;
+    private final StaticKeyAuthenticationFilter staticKeyAuthenticationFilter;
 
     @Bean
     JwtAuthenticationProvider jwtAuthenticationProvider() {
@@ -53,7 +58,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+//        http.addFilterBefore(new RequestValidationFilter(), UsernamePasswordAuthenticationFilter.class);
         //TODO: What you want to customize.
+//        http.addFilterAt(staticKeyAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // Add your custom filter after the UsernamePasswordAuthenticationFilter
+//        http.addFilterAfter(new CustomFilter(), UsernamePasswordAuthenticationFilter.class);
 
         // Configure HTTP request authorization rules
         http.authorizeHttpRequests(auth -> auth
@@ -87,6 +97,7 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS
                 ));
+
 
         return http.build();
 
