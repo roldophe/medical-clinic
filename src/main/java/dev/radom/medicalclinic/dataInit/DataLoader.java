@@ -33,56 +33,56 @@ public class DataLoader implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        UUID createdBy = UUID.randomUUID();
-
-        User userAdmin = new User();
-        userAdmin.setIsDeleted(false);
-        userAdmin.setIsVerified(true);
-        userAdmin.setUsername("admin");
-        userAdmin.setNickName("tocopherol");
-        userAdmin.setPassword(passwordEncoder.encode("12345"));
-        userAdmin.setEmail("admin@gmail.com");
-        userAdmin.setCreatedBy(createdBy);
-
-        User userStaff = new User();
-        userStaff.setIsDeleted(false);
-        userStaff.setIsVerified(true);
-        userStaff.setUsername("staff");
-        userStaff.setNickName("raphael");
-        userStaff.setPassword(passwordEncoder.encode("12345"));
-        userStaff.setEmail("staff@gmail.com");
-        userStaff.setCreatedBy(createdBy);
-
-        Authority userProfile = new Authority();
-        userProfile.setAuthorityName("user:profile");
-        userProfile.setCreatedBy(createdBy);
-
-        Authority readUser = new Authority();
-        readUser.setAuthorityName("user:read");
-        readUser.setCreatedBy(createdBy);
-
-        Set<Authority> userAuthorities = getUserAuthorities(createdBy, readUser, userProfile);
-        authorityRepository.saveAll(userAuthorities);
-
-        Role adminRole = new Role();
-        adminRole.setRoleName("ADMIN");
-        adminRole.setCreatedBy(createdBy);
-        adminRole.setAuthorities(userAuthorities); // Ensure this collection is initialized with the saved authorities
-        roleRepository.save(adminRole);
-
-        // Assuming you want to assign the ADMIN role to the user
-        userAdmin.setRoles(Collections.singleton(adminRole));
-        userRepository.save(userAdmin);
-
-        Set<Authority> staffAuthorities = Set.of(userProfile);
-
-        Role staffRole = new Role();
-        staffRole.setRoleName("STAFF");
-        staffRole.setCreatedBy(createdBy);
-        staffRole.setAuthorities(staffAuthorities); // Use the modified method
-        roleRepository.save(staffRole);
-        userStaff.setRoles(Collections.singleton(staffRole));
-        userRepository.save(userStaff);
+//        UUID createdBy = UUID.randomUUID();
+//
+//        User userAdmin = new User();
+//        userAdmin.setIsDeleted(false);
+//        userAdmin.setIsVerified(true);
+//        userAdmin.setUsername("admin");
+//        userAdmin.setNickName("tocopherol");
+//        userAdmin.setPassword(passwordEncoder.encode("12345"));
+//        userAdmin.setEmail("admin@gmail.com");
+//        userAdmin.setCreatedBy(createdBy);
+//
+//        User userStaff = new User();
+//        userStaff.setIsDeleted(false);
+//        userStaff.setIsVerified(true);
+//        userStaff.setUsername("staff");
+//        userStaff.setNickName("raphael");
+//        userStaff.setPassword(passwordEncoder.encode("12345"));
+//        userStaff.setEmail("staff@gmail.com");
+//        userStaff.setCreatedBy(createdBy);
+//
+//        Authority userProfile = new Authority();
+//        userProfile.setAuthorityName("user:profile");
+//        userProfile.setCreatedBy(createdBy);
+//
+//        Authority readUser = new Authority();
+//        readUser.setAuthorityName("user:read");
+//        readUser.setCreatedBy(createdBy);
+//
+//        Set<Authority> userAuthorities = getUserAuthorities(createdBy, readUser, userProfile);
+//        authorityRepository.saveAll(userAuthorities);
+//
+//        Role adminRole = new Role();
+//        adminRole.setRoleName("ADMIN");
+//        adminRole.setCreatedBy(createdBy);
+//        adminRole.setAuthorities(userAuthorities); // Ensure this collection is initialized with the saved authorities
+//        roleRepository.save(adminRole);
+//
+//        // Assuming you want to assign the ADMIN role to the user
+//        userAdmin.setRoles(Collections.singleton(adminRole));
+//        userRepository.save(userAdmin);
+//
+//        Set<Authority> staffAuthorities = Set.of(userProfile);
+//
+//        Role staffRole = new Role();
+//        staffRole.setRoleName("STAFF");
+//        staffRole.setCreatedBy(createdBy);
+//        staffRole.setAuthorities(staffAuthorities); // Use the modified method
+//        roleRepository.save(staffRole);
+//        userStaff.setRoles(Collections.singleton(staffRole));
+//        userRepository.save(userStaff);
     }
 
     private static Set<Authority> getUserAuthorities(UUID createdBy, Authority readUser, Authority userProfile) {

@@ -5,8 +5,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import dev.radom.medicalclinic.filterConfig.CustomFilter;
-import dev.radom.medicalclinic.filterConfig.StaticKeyAuthenticationFilter;
+//import dev.radom.medicalclinic.filterConfig.StaticKeyAuthenticationFilter;
 import dev.radom.medicalclinic.utils.KeyUtil;
 import dev.radom.medicalclinic.filterConfig.RequestValidationFilter;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +28,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final KeyUtil keyUtil;
-    private final StaticKeyAuthenticationFilter staticKeyAuthenticationFilter;
+//    private final StaticKeyAuthenticationFilter staticKeyAuthenticationFilter;
 
     @Bean
     JwtAuthenticationProvider jwtAuthenticationProvider() {
@@ -70,6 +70,8 @@ public class SecurityConfig {
 
                         // Permit all requests matching the pattern "/auth/**"
                         .requestMatchers("/api/v1/auth/**", "/api/v1/files/**", "/file/**", "/auth/**").permitAll()
+                        // Permit all requests matching the pattern "/auth/**"
+                        .requestMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/v2/api-docs/**", "/swagger-resources/**").permitAll()
 
                         // Require either "ADMIN" or "STAFF" authority for requests to "/api/v1/users"
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/me").hasAuthority("SCOPE_user:profile")
@@ -77,6 +79,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/**").hasAuthority("SCOPE_user:write")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAuthority("SCOPE_user:delete")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasAuthority("SCOPE_user:update")
+
+                        // Require either "ADMIN" or "STAFF" authority for requests to "/api/v1/doctors"
+                        .requestMatchers(HttpMethod.GET, "/api/v1/doctors/**").hasAuthority("SCOPE_user:read")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/doctors/**").hasAuthority("SCOPE_user:write")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/doctors/**").hasAuthority("SCOPE_user:delete")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/doctors/**").hasAuthority("SCOPE_user:update")
 
                         // If a request matches none of the above patterns, require authentication
                         .anyRequest().authenticated()

@@ -20,9 +20,7 @@ public class UserDetailsServiceDetailsImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User userFound = userRepository.findByUsernameAndIsDeletedFalseAndIsVerifiedTrue(username)
-                .orElseThrow(() -> {
-                    throw new UsernameNotFoundException("User not found with username " + username);
-                });
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
 
         CustomUserDetails customUserDetails = new CustomUserDetails();
         customUserDetails.setUser(userFound);

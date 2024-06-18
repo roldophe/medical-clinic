@@ -46,11 +46,11 @@ public class CustomFilter extends OncePerRequestFilter {
             System.out.println("CustomFilter ended.");
         }
     }
-
-    @Bean
-    public FilterRegistrationBean<CustomFilter> CustomFilterRegistration(CustomFilter customFilter) {
-        FilterRegistrationBean<CustomFilter> registrationBean = new FilterRegistrationBean<>(customFilter);
-        registrationBean.addUrlPatterns("/api/v1/auth/*"); // Apply the filter to all URLs starting with /api/v1/auth/login
-        return registrationBean;
-    }
+//
+//    @Bean
+//    public FilterRegistrationBean<CustomFilter> CustomFilterRegistration(CustomFilter customFilter) {
+//        FilterRegistrationBean<CustomFilter> registrationBean = new FilterRegistrationBean<>(customFilter);
+//        registrationBean.addUrlPatterns("/api/v1/auth/*"); // Apply the filter to all URLs starting with /api/v1/auth/login
+//        return registrationBean;
+//    }
 }

@@ -1,4 +1,4 @@
-package dev.radom.medicalclinic.api.mail;
+package dev.radom.medicalclinic.mail;
 
 import jakarta.mail.MessagingException;
 
