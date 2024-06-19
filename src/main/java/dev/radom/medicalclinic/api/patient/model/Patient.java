@@ -1,6 +1,5 @@
 package dev.radom.medicalclinic.api.patient.model;
 
-import dev.radom.medicalclinic.api.appointment.model.Appointment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,6 +31,4 @@ public class Patient {
     private LocalDateTime createdAt;
     private UUID updatedBy;
     private LocalDateTime updatedAt;
-    @OneToMany
-    private List<Appointment> appointments;
 }

@@ -32,6 +32,4 @@ public class Medicine {
     private LocalDateTime createdAt;
     private UUID updatedBy;
     private LocalDateTime updatedAt;
-    @ManyToMany(mappedBy = "medicines")
-    private Set<Prescription> prescriptions;
 }
