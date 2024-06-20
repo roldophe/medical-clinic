@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record AddNewAppointmentDTO(
                                 UUID doctorId,
-                                Patient patientId,
+                                UUID patientId,
                                 Boolean isNewPatient,
                                 String status,
                                 Boolean isFollowUp,

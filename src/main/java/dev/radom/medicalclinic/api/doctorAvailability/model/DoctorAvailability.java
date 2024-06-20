@@ -28,11 +28,4 @@ public class DoctorAvailability {
     private LocalTime startTime;
     private LocalTime endTime;
 
- public DoctorAvailability(UUID doctorAvailabilityId, Doctor doctor, String dayOfWeek, LocalTime startTime, LocalTime endTime) {
-  this.doctorAvailabilityId = doctorAvailabilityId;
-  this.doctor = doctor;
-  this.dayOfWeek = dayOfWeek;
-  this.startTime = startTime;
-  this.endTime = endTime;
- }
 }
