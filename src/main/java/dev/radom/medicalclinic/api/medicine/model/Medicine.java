@@ -1,6 +1,7 @@
 package dev.radom.medicalclinic.api.medicine.model;
 
 import dev.radom.medicalclinic.api.prescription.model.Prescription;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "medicines")
-public class Medicine {
+public class Medicine extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -28,8 +29,4 @@ public class Medicine {
     private String category;
     private String dosageForm;
     private Boolean isGeneric;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
 }

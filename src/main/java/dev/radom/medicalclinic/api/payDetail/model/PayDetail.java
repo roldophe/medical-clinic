@@ -4,6 +4,7 @@ import dev.radom.medicalclinic.api.bill.model.Bill;
 import dev.radom.medicalclinic.api.pay.model.Pay;
 import dev.radom.medicalclinic.api.paymentMethod.model.PaymentMethod;
 import dev.radom.medicalclinic.api.transaction.model.Transaction;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "pay_details")
-public class PayDetail {
+public class PayDetail extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID payDetailId;
@@ -41,8 +42,4 @@ public class PayDetail {
     private PaymentMethod paymentMethod;
 
     private String paymentStatus;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
 }

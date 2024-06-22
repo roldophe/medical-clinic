@@ -5,7 +5,6 @@ import java.util.UUID;
 
 public record UpdateAppointmentDTO(
                                 UUID doctorId,
-                                UUID patientId,
                                 String status,
                                 Boolean isFollowUp,
                                 String reasonForAppointment,

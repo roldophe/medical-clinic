@@ -2,6 +2,7 @@ package dev.radom.medicalclinic.api.appointment.model;
 
 import dev.radom.medicalclinic.api.doctor.model.Doctor;
 import dev.radom.medicalclinic.api.patient.model.Patient;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "appointments")
-public class Appointment {
+public class Appointment extends BaseEntity {
      @Id
     @GeneratedValue
     private UUID appointmentId;
@@ -35,26 +36,4 @@ public class Appointment {
     private String status;
     private String additionalInfo;
     private Boolean isNewPatient;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
-
-    public Appointment(LocalDateTime updatedAt, UUID updatedBy, LocalDateTime createdAt, UUID createdBy, Boolean isNewPatient, String additionalInfo, String status, Boolean isFollowUp, String reasonForAppointment, Boolean inProgress, LocalDateTime endTime, LocalDateTime startTime, Doctor doctor, Patient patient, UUID appointmentId) {
-        this.updatedAt = updatedAt;
-        this.updatedBy = updatedBy;
-        this.createdAt = createdAt;
-        this.createdBy = createdBy;
-        this.isNewPatient = isNewPatient;
-        this.additionalInfo = additionalInfo;
-        this.status = status;
-        this.isFollowUp = isFollowUp;
-        this.reasonForAppointment = reasonForAppointment;
-        this.inProgress = inProgress;
-        this.endTime = endTime;
-        this.startTime = startTime;
-        this.doctor = doctor;
-        this.patient = patient;
-        this.appointmentId = appointmentId;
-    }
 }

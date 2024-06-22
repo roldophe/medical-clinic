@@ -1,6 +1,7 @@
 package dev.radom.medicalclinic.api.doctorAvailability.model;
 
 import dev.radom.medicalclinic.api.doctor.model.Doctor;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "doctor_availability")
-public class DoctorAvailability {
+public class DoctorAvailability extends BaseEntity {
    @Id
     @GeneratedValue
     private UUID doctorAvailabilityId;

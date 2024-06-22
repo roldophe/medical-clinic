@@ -2,6 +2,7 @@ package dev.radom.medicalclinic.api.prescription.model;
 
 import dev.radom.medicalclinic.api.appointment.model.Appointment;
 import dev.radom.medicalclinic.api.medicine.model.Medicine;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "prescriptions")
-public class Prescription {
+public class Prescription extends BaseEntity {
      @Id
     @GeneratedValue
     private UUID prescriptionId;
@@ -35,10 +36,6 @@ public class Prescription {
     private Integer dosage;
     private String prescriptionNotes;
     private Boolean refillsAllowed;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
 
 
 }

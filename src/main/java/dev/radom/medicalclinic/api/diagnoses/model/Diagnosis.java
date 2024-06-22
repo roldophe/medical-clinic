@@ -1,6 +1,7 @@
 package dev.radom.medicalclinic.api.diagnoses.model;
 
 import dev.radom.medicalclinic.api.patient.model.Patient;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "diagnoses")
-public class Diagnosis {
+public class Diagnosis extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID diagnosisId;
@@ -28,21 +29,4 @@ public class Diagnosis {
     private String diagnosisDescription;
     private LocalDate diagnosisDate;
     private String severity;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
-
-    public Diagnosis(UUID diagnosisId, Patient patient, String diagnosisName, String diagnosisDescription, LocalDate diagnosisDate, String severity, UUID createdBy, LocalDateTime createdAt, UUID updatedBy, LocalDateTime updatedAt) {
-        this.diagnosisId = diagnosisId;
-        this.patient = patient;
-        this.diagnosisName = diagnosisName;
-        this.diagnosisDescription = diagnosisDescription;
-        this.diagnosisDate = diagnosisDate;
-        this.severity = severity;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.updatedBy = updatedBy;
-        this.updatedAt = updatedAt;
-    }
 }

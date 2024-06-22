@@ -1,6 +1,7 @@
 package dev.radom.medicalclinic.api.insurances.model;
 
 import dev.radom.medicalclinic.api.patient.model.Patient;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "insurances")
-public class Insurance {
+public class Insurance extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID insuranceId;
@@ -33,10 +34,4 @@ public class Insurance {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
-
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
-
 }

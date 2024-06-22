@@ -1,5 +1,6 @@
 package dev.radom.medicalclinic.api.patient.model;
 
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "patients")
-public class Patient {
+public class Patient extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID patientId;
@@ -27,8 +28,4 @@ public class Patient {
     private String email;
     private String phoneNumber;
     private String maritalStatus;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
 }

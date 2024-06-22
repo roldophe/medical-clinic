@@ -1,5 +1,6 @@
 package dev.radom.medicalclinic.api.transaction.model;
 
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "transactions")
-public class Transaction {
+public class Transaction extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID transactionId;
@@ -24,8 +25,4 @@ public class Transaction {
     private LocalDateTime transactionDate;
     private Double amount;
     private String description;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
 }

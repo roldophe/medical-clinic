@@ -1,5 +1,6 @@
 package dev.radom.medicalclinic.api.pay.model;
 
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +17,11 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "pays")
-public class Pay {
+public class Pay extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID payId;
 
     private LocalDateTime payDate;
     private BigDecimal paidAmount;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
-
 }

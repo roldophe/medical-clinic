@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "AuditorAwareImpl")
 @OpenAPIDefinition(
         info = @Info(
                 title = "Medical Clinic Solution API(ISTAD SB7)",

@@ -1,6 +1,7 @@
 package dev.radom.medicalclinic.api.bill.model;
 
 import dev.radom.medicalclinic.api.appointment.model.Appointment;
+import dev.radom.medicalclinic.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Entity
 @ToString
 @Table(name = "bills")
-public class Bill {
+public class Bill extends BaseEntity {
     @Id
     @GeneratedValue
     private UUID billId;
@@ -29,8 +30,4 @@ public class Bill {
     private String billItems;
     private Double totalAmount;
     private String billStatus;
-    private UUID createdBy;
-    private LocalDateTime createdAt;
-    private UUID updatedBy;
-    private LocalDateTime updatedAt;
 }
