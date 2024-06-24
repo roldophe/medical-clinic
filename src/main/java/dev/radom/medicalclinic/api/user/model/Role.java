@@ -16,20 +16,17 @@ import java.util.UUID;
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID roleId;
-
-    @Column(nullable = false, unique = true)
+    @Column(name = "role_name", nullable = false, unique = true)
     private String roleName;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_authorities",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    @JoinTable(
+        name = "roles_authorities",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
     private Set<Authority> authorities = new HashSet<>();
-
 }

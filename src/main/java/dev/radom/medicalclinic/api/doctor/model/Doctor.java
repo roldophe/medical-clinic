@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +18,7 @@ import java.util.UUID;
 @Table(name = "doctors")
 public class Doctor extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID doctorId;
 
     private String firstName;

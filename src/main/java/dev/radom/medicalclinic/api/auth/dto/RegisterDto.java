@@ -2,10 +2,11 @@ package dev.radom.medicalclinic.api.auth.dto;
 
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 
 import java.util.Set;
 import java.util.UUID;
-
+@Builder
 public record RegisterDto(@NotBlank
                           String username,
                           @NotBlank
@@ -13,9 +14,6 @@ public record RegisterDto(@NotBlank
                           String email,
                           @NotBlank
                           String password,
-                          @NotBlank
-                          @Size(min = 3)
-                          String nickName,
                           @NotNull
                           Set<UUID> roleIds) {
 }

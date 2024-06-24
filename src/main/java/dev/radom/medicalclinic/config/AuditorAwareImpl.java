@@ -1,8 +1,9 @@
-package dev.radom.medicalclinic.auditAware;
+package dev.radom.medicalclinic.config;
 import dev.radom.medicalclinic.api.user.service.UserService;
 import dev.radom.medicalclinic.api.user.web.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -20,12 +21,14 @@ public class AuditorAwareImpl implements AuditorAware<UUID> {
     @Override
     public Optional<UUID> getCurrentAuditor() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDto data;
-        try {
-            data = service.me(auth);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+        if (auth == null ||
+                !auth.isAuthenticated() ||
+                auth instanceof AnonymousAuthenticationToken) {
+            return Optional.empty();
         }
+
+        UserDto data = service.me(auth);
 
         if (data != null) {
             return Optional.of(data.userId());

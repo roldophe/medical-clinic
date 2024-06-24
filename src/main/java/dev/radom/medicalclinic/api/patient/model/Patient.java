@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -24,6 +25,7 @@ public class Patient extends BaseEntity {
     private String firstName;
     private String lastName;
     private Character gender;
+    private LocalDate birthDate;
     private String address;
     private String email;
     private String phoneNumber;

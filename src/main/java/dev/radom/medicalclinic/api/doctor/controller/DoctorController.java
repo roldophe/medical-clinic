@@ -1,12 +1,12 @@
 package dev.radom.medicalclinic.api.doctor.controller;
 
-import dev.radom.medicalclinic.api.doctor.dto.AddNewDoctorDTO;
-import dev.radom.medicalclinic.api.doctor.dto.DoctorDetailDTO;
-import dev.radom.medicalclinic.api.doctor.dto.DoctorListDTO;
-import dev.radom.medicalclinic.api.doctor.dto.UpdateDoctorDTO;
+import dev.radom.medicalclinic.api.doctor.dto.*;
 import dev.radom.medicalclinic.api.doctor.service.DoctorService;
 import dev.radom.medicalclinic.pagination.PayloadApi;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +15,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/doctors")
 @RequiredArgsConstructor
+@Slf4j
 public class DoctorController {
+
     private final DoctorService doctorService;
 
     @GetMapping()
@@ -27,6 +29,12 @@ public class DoctorController {
     @PostMapping
     public void addDoctor(@RequestBody AddNewDoctorDTO addNewDoctorDTO) {
         doctorService.save(addNewDoctorDTO);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerDoctor(@RequestBody @Valid DoctorRegistrationDTO doctorRegistrationDTO) {
+        doctorService.registerDoctor(doctorRegistrationDTO);
+        return ResponseEntity.ok("Doctor registered successfully.");
     }
 
     @GetMapping("/{doctorId}")

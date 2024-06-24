@@ -22,14 +22,9 @@ public class UserController {
 
     @GetMapping("/me")
     public PayloadApi<?> me(Authentication authentication) {
-//        UserDto data = userService.me(authentication);
-        UserDto data = null;
-        try {
-            data= userService.me(authentication);
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        UserDto data = userService.me(authentication);
+
         return PayloadApi.builder()
                 .success(true)
                 .code(200)
