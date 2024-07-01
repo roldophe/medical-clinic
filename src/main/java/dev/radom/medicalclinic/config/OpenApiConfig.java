@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
 
                 description = "Medical Clinic Solution API",
-                title = "Medical Clinic Solution API(ISTAD SB7)",
+                title = "Medical Clinic Solution API",
                 version = "1.0",
                 license = @License(
                         name = "Licence name",
